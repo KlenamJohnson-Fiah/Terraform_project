@@ -1,0 +1,366 @@
+Check 1
+
+  [AWS008][WARNING] Resource 'aws_security_group.load_balancer' defines a fully open ingress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:206
+
+     203 |   vpc_id      = aws_vpc.main_vpc.id
+     204 |
+     205 |   ingress {
+     206 |     cidr_blocks = ["0.0.0.0/0"]
+     207 |     description = "https"
+     208 |     from_port   = 433
+     209 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS008/ for more information.
+
+Check 2
+
+  [AWS008][WARNING] Resource 'aws_security_group.load_balancer' defines a fully open ingress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:214
+
+     211 |   }
+     212 |
+     213 |   ingress {
+     214 |     cidr_blocks = ["0.0.0.0/0"]
+     215 |     description = "HTTP"
+     216 |     from_port   = 80
+     217 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS008/ for more information.
+
+Check 3
+
+  [AWS008][WARNING] Resource 'aws_security_group.bastion_sg' defines a fully open ingress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:261
+
+     258 |     to_port     = 22
+     259 |   }
+     260 |   ingress {
+     261 |     cidr_blocks = ["0.0.0.0/0"]
+     262 |     description = "HTTP"
+     263 |     from_port   = 80
+     264 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS008/ for more information.
+
+Check 4
+
+  [AWS012][ERROR] Resource 'aws_launch_configuration.launch_config' has a public IP address associated.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\launch_config.tf:7
+
+       4 |   image_id                    = local.ami_filter #data.aws_ami.linux.id
+       5 |   instance_type               = "t2.micro"
+       6 |   security_groups             = ["${aws_security_group.web_app.id}"]
+       7 |   associate_public_ip_address = true
+       8 |   key_name                    = "webapp-key"
+       9 |
+      10 |
+
+   See https://tfsec.dev/docs/aws/AWS012/ for more information.
+
+Check 5
+
+  [AWS009][WARNING] Resource 'aws_security_group.web_app' defines a fully open egress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:45
+
+      42 |     to_port     = 433
+      43 |   }
+      44 |   egress {
+      45 |     cidr_blocks = ["0.0.0.0/0"]
+      46 |     description = "PING"
+      47 |     from_port   = -1
+      48 |     protocol    = "icmp"
+
+   See https://tfsec.dev/docs/aws/AWS009/ for more information.
+
+Check 6
+
+  [AWS009][WARNING] Resource 'aws_security_group.web_app' defines a fully open egress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:52
+
+      49 |     to_port     = -1
+      50 |   }
+      51 |   egress {
+      52 |     cidr_blocks = ["0.0.0.0/0"]
+      53 |     description = "HTTP"
+      54 |     from_port   = 80
+      55 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS009/ for more information.
+
+Check 7
+
+  [AWS009][WARNING] Resource 'aws_security_group.load_balancer' defines a fully open egress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:231
+
+     228 |     to_port     = 433
+     229 |   }
+     230 |   egress {
+     231 |     cidr_blocks = ["0.0.0.0/0"]
+     232 |     description = "HTTP"
+     233 |     from_port   = 80
+     234 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS009/ for more information.
+
+Check 8
+
+  [AWS009][WARNING] Resource 'aws_security_group.bastion_sg' defines a fully open egress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:269
+
+     266 |   }
+     267 |
+     268 |   egress {
+     269 |     cidr_blocks = ["0.0.0.0/0"]
+     270 |     description = "SSH"
+     271 |     from_port   = 22
+     272 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS009/ for more information.
+
+Check 9
+
+  [AWS009][WARNING] Resource 'aws_security_group.bastion_sg' defines a fully open egress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:277
+
+     274 |   }
+     275 |
+     276 |   egress {
+     277 |     cidr_blocks = ["0.0.0.0/0"]
+     278 |     description = "HTTP"
+     279 |     from_port   = 80
+     280 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS009/ for more information.
+
+Check 10
+
+  [AWS052][ERROR] Resource 'aws_db_instance.db_instance' has no storage encryption defined.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\database_instance.tf:1-20
+
+       1 | resource "aws_db_instance" "db_instance" {
+       2 |   #for_each = toset("${var.availability_zones}")
+       3 |
+       4 |   allocated_storage   = 10
+       5 |   engine              = "postgres"
+       6 |   engine_version      = "12"
+       7 |   instance_class      = "db.t2.micro"
+       8 |   username            = "${var.db_username}"
+       9 |   password            = "${var.db_password}"
+      10 |   skip_final_snapshot = true
+      11 |   #availability_zone = each.value #"${var.availability_zones[count.index]}"
+      12 |   identifier             = format("db-for-fun")
+      13 |   port                   = "5432"
+      14 |   publicly_accessible    = false
+      15 |   vpc_security_group_ids = "${aws_security_group.private_subnet_2[*].id}"
+      16 |   db_subnet_group_name   = "${aws_db_subnet_group.db_subnet_grp.id}"
+      17 |   multi_az               = true
+      18 |
+      19 |
+      20 | }
+      21 |
+
+   See https://tfsec.dev/docs/aws/AWS052/ for more information.
+
+Check 11
+
+  [AWS008][WARNING] Resource 'aws_security_group.web_app' defines a fully open ingress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:14
+
+      11 |     to_port     = 433
+      12 |   }
+      13 |   ingress {
+      14 |     cidr_blocks = ["0.0.0.0/0"]
+      15 |     description = "PING"
+      16 |     from_port   = -1
+      17 |     protocol    = "icmp"
+
+   See https://tfsec.dev/docs/aws/AWS008/ for more information.
+
+Check 12
+
+  [AWS009][WARNING] Resource 'aws_security_group.web_app' defines a fully open egress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:38
+
+      35 |
+      36 |
+      37 |   egress {
+      38 |     cidr_blocks = ["0.0.0.0/0"]
+      39 |     description = "HTTPS"
+      40 |     from_port   = 433
+      41 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS009/ for more information.
+
+Check 13
+
+  [AWS009][WARNING] Resource 'aws_security_group.load_balancer' defines a fully open egress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:224
+
+     221 |
+     222 |
+     223 |   egress {
+     224 |     cidr_blocks = ["0.0.0.0/0"]
+     225 |     description = "https"
+     226 |     from_port   = 433
+     227 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS009/ for more information.
+
+Check 14
+
+  [AWS008][WARNING] Resource 'aws_security_group.bastion_sg' defines a fully open ingress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:254
+
+     251 |
+     252 |
+     253 |   ingress {
+     254 |     cidr_blocks = ["0.0.0.0/0"]
+     255 |     description = "SSH"
+     256 |     from_port   = 22
+     257 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS008/ for more information.
+
+Check 15
+
+  [AWS005][WARNING] Resource 'aws_elb.web_elb' is exposed publicly.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\elb.tf:1-34
+
+       1 | resource "aws_elb" "web_elb" {
+       2 |   name = "web-elb"
+       3 |   security_groups           = ["${aws_security_group.load_balancer.id}"]
+       4 |   subnets                   = "${aws_subnet.public_subnet[*].id}"
+       5 |   cross_zone_load_balancing = true
+       6 |
+       7 |   listener {
+       8 |     instance_port     = 80
+       9 |     instance_protocol = "HTTP"
+      10 |     lb_port           = 80
+      11 |     lb_protocol       = "HTTP"
+      12 |
+      13 |   }
+      14 |
+      15 |   # listener {
+      16 |   #   instance_port = 433
+      17 |   #   instance_protocol = "HTTPS"
+      18 |   #   lb_port = 433
+      19 |   #   lb_protocol = "HTTPS"
+      20 |   #   ssl_certificate_id = "arn:aws:iam::123456789012:server-certificate/certName"
+      21 |
+      22 |   # }
+      23 |
+      24 |   health_check {
+      25 |     healthy_threshold   = 5
+      26 |     unhealthy_threshold = 5
+      27 |     target              = "HTTP:80/"
+      28 |     interval            = 30
+      29 |     timeout             = 3
+      30 |
+      31 |   }
+      32 |
+      33 |
+      34 | }
+      35 |
+      36 | #Should probably use aws_lb and aws_lb_listener next time.
+      37 | #That way i can attach and EIP to my load balancer
+
+   See https://tfsec.dev/docs/aws/AWS005/ for more information.
+
+Check 16
+
+  [AWS014][ERROR] Resource 'aws_launch_configuration.launch_config' uses an unencrypted root EBS block device. Consider adding <blue>root_block_device{ encrypted = true }</blue>
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\launch_config.tf:2-26
+
+       1 |
+       2 | resource "aws_launch_configuration" "launch_config" {
+       3 |   name_prefix                 = "terraform-launch_config"
+       4 |   image_id                    = local.ami_filter #data.aws_ami.linux.id
+       5 |   instance_type               = "t2.micro"
+       6 |   security_groups             = ["${aws_security_group.web_app.id}"]
+       7 |   associate_public_ip_address = true
+       8 |   key_name                    = "webapp-key"
+       9 |
+      10 |
+      11 |   user_data = <<EOF
+      12 |   #!/bin/bash
+      13 |   sudo yum update -y
+      14 |   sudo amazon-linux-extras install docker -y
+      15 |   sudo service docker start
+      16 |   sudo usermod -a -G docker ec2-user
+      17 |   #docker pull aws_account_id.dkr.ecr.us-west-2.amazonaws.com/amazonlinux:latest
+      18 |
+      19 |   EOF
+      20 |   #the docker image pull just and example obtained from
+      21 |   #https://docs.aws.amazon.com/AmazonECR/latest/userguide/docker-pull-ecr-image.html
+      22 |
+      23 |   lifecycle {
+      24 |     create_before_destroy = true
+      25 |   }
+      26 | }
+      27 |
+
+   See https://tfsec.dev/docs/aws/AWS014/ for more information.
+
+Check 17
+
+  [AWS008][WARNING] Resource 'aws_security_group.web_app' defines a fully open ingress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:7
+
+       4 |   vpc_id      = aws_vpc.main_vpc.id
+       5 |
+       6 |   ingress {
+       7 |     cidr_blocks = ["0.0.0.0/0"]
+       8 |     description = "https"
+       9 |     from_port   = 433
+      10 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS008/ for more information.
+
+Check 18
+
+  [AWS008][WARNING] Resource 'aws_security_group.web_app' defines a fully open ingress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:28
+
+      25 |     to_port     = 22
+      26 |   }
+      27 |   ingress {
+      28 |     cidr_blocks = ["0.0.0.0/0"]
+      29 |     description = "HTTP"
+      30 |     from_port   = 80
+      31 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS008/ for more information.
+
+Check 19
+
+  [AWS009][WARNING] Resource 'aws_security_group.load_balancer' defines a fully open egress security group.
+  C:\Users\Chris\Desktop\Terraform_3_tier\manifest\security_groups.tf:238
+
+     235 |     to_port     = 80
+     236 |   }
+     237 |   egress {
+     238 |     cidr_blocks = ["0.0.0.0/0"]
+     239 |     description = "open"
+     240 |     from_port   = 0
+     241 |     protocol    = "tcp"
+
+   See https://tfsec.dev/docs/aws/AWS009/ for more information.
+
+  times
+  ------------------------------------------
+  disk i/o             21.8658ms
+  parsing HCL          534.1µs
+  evaluating values    2.648ms
+  running checks       8.8738ms
+
+  counts
+  ------------------------------------------
+  files loaded         21
+  blocks               66
+  evaluated blocks     66
+  modules              0
+  module blocks        0
+  ignored checks       0
+
+19 potential problems detected.

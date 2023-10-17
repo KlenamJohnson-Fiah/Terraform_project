@@ -1,0 +1,207 @@
+digraph {
+	compound = "true"
+	newrank = "true"
+	subgraph "root" {
+		"[root] aws_autoscaling_group.web_app_autoscale (expand)" [label = "aws_autoscaling_group.web_app_autoscale", shape = "box"]
+		"[root] aws_autoscaling_policy.down_policy (expand)" [label = "aws_autoscaling_policy.down_policy", shape = "box"]
+		"[root] aws_autoscaling_policy.up_policy (expand)" [label = "aws_autoscaling_policy.up_policy", shape = "box"]
+		"[root] aws_cloudwatch_metric_alarm.down_alarm_watch (expand)" [label = "aws_cloudwatch_metric_alarm.down_alarm_watch", shape = "box"]
+		"[root] aws_cloudwatch_metric_alarm.up_alarm_watch (expand)" [label = "aws_cloudwatch_metric_alarm.up_alarm_watch", shape = "box"]
+		"[root] aws_db_instance.master_db_instance (expand)" [label = "aws_db_instance.master_db_instance", shape = "box"]
+		"[root] aws_db_instance.slave_db_instance (expand)" [label = "aws_db_instance.slave_db_instance", shape = "box"]
+		"[root] aws_db_subnet_group.db_subnet_grp (expand)" [label = "aws_db_subnet_group.db_subnet_grp", shape = "box"]
+		"[root] aws_eip.dmz (expand)" [label = "aws_eip.dmz", shape = "box"]
+		"[root] aws_eip.nat_gate (expand)" [label = "aws_eip.nat_gate", shape = "box"]
+		"[root] aws_elb.web_elb (expand)" [label = "aws_elb.web_elb", shape = "box"]
+		"[root] aws_instance.apiend_instance (expand)" [label = "aws_instance.apiend_instance", shape = "box"]
+		"[root] aws_instance.bastion_instance (expand)" [label = "aws_instance.bastion_instance", shape = "box"]
+		"[root] aws_internet_gateway.igw (expand)" [label = "aws_internet_gateway.igw", shape = "box"]
+		"[root] aws_launch_configuration.launch_config (expand)" [label = "aws_launch_configuration.launch_config", shape = "box"]
+		"[root] aws_nat_gateway.nat_gate (expand)" [label = "aws_nat_gateway.nat_gate", shape = "box"]
+		"[root] aws_network_acl.main_acl (expand)" [label = "aws_network_acl.main_acl", shape = "box"]
+		"[root] aws_route_table.privsub1_to_natgw (expand)" [label = "aws_route_table.privsub1_to_natgw", shape = "box"]
+		"[root] aws_route_table.privsub1_to_privsub2 (expand)" [label = "aws_route_table.privsub1_to_privsub2", shape = "box"]
+		"[root] aws_route_table.privsub2_to_natgw (expand)" [label = "aws_route_table.privsub2_to_natgw", shape = "box"]
+		"[root] aws_route_table.route_outside (expand)" [label = "aws_route_table.route_outside", shape = "box"]
+		"[root] aws_route_table_association.dmz_igw (expand)" [label = "aws_route_table_association.dmz_igw", shape = "box"]
+		"[root] aws_route_table_association.privatesub1_natgate (expand)" [label = "aws_route_table_association.privatesub1_natgate", shape = "box"]
+		"[root] aws_route_table_association.privatesub2_natgate (expand)" [label = "aws_route_table_association.privatesub2_natgate", shape = "box"]
+		"[root] aws_route_table_association.publicsub_igw (expand)" [label = "aws_route_table_association.publicsub_igw", shape = "box"]
+		"[root] aws_security_group.bastion_sg (expand)" [label = "aws_security_group.bastion_sg", shape = "box"]
+		"[root] aws_security_group.load_balancer (expand)" [label = "aws_security_group.load_balancer", shape = "box"]
+		"[root] aws_security_group.private_subnet_1 (expand)" [label = "aws_security_group.private_subnet_1", shape = "box"]
+		"[root] aws_security_group.private_subnet_2 (expand)" [label = "aws_security_group.private_subnet_2", shape = "box"]
+		"[root] aws_security_group.web_app (expand)" [label = "aws_security_group.web_app", shape = "box"]
+		"[root] aws_subnet.dmz (expand)" [label = "aws_subnet.dmz", shape = "box"]
+		"[root] aws_subnet.private_subnet_1 (expand)" [label = "aws_subnet.private_subnet_1", shape = "box"]
+		"[root] aws_subnet.private_subnet_2 (expand)" [label = "aws_subnet.private_subnet_2", shape = "box"]
+		"[root] aws_subnet.public_subnet (expand)" [label = "aws_subnet.public_subnet", shape = "box"]
+		"[root] aws_vpc.main_vpc (expand)" [label = "aws_vpc.main_vpc", shape = "box"]
+		"[root] data.aws_ami.linux (expand)" [label = "data.aws_ami.linux", shape = "box"]
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" [label = "provider[\"registry.terraform.io/hashicorp/aws\"]", shape = "diamond"]
+		"[root] var.availability_zones" [label = "var.availability_zones", shape = "note"]
+		"[root] var.aws_access_key" [label = "var.aws_access_key", shape = "note"]
+		"[root] var.aws_secret_key" [label = "var.aws_secret_key", shape = "note"]
+		"[root] var.db_password" [label = "var.db_password", shape = "note"]
+		"[root] var.db_username" [label = "var.db_username", shape = "note"]
+		"[root] var.dmz_subnet" [label = "var.dmz_subnet", shape = "note"]
+		"[root] var.env_instance_tags" [label = "var.env_instance_tags", shape = "note"]
+		"[root] var.private_subnet_cidr_block_1" [label = "var.private_subnet_cidr_block_1", shape = "note"]
+		"[root] var.private_subnet_cidr_block_2" [label = "var.private_subnet_cidr_block_2", shape = "note"]
+		"[root] var.public_subnet_cidr_block" [label = "var.public_subnet_cidr_block", shape = "note"]
+		"[root] var.region" [label = "var.region", shape = "note"]
+		"[root] aws_autoscaling_group.web_app_autoscale (expand)" -> "[root] aws_elb.web_elb (expand)"
+		"[root] aws_autoscaling_group.web_app_autoscale (expand)" -> "[root] aws_launch_configuration.launch_config (expand)"
+		"[root] aws_autoscaling_policy.down_policy (expand)" -> "[root] aws_autoscaling_group.web_app_autoscale (expand)"
+		"[root] aws_autoscaling_policy.up_policy (expand)" -> "[root] aws_autoscaling_group.web_app_autoscale (expand)"
+		"[root] aws_cloudwatch_metric_alarm.down_alarm_watch (expand)" -> "[root] aws_autoscaling_policy.down_policy (expand)"
+		"[root] aws_cloudwatch_metric_alarm.up_alarm_watch (expand)" -> "[root] aws_autoscaling_policy.up_policy (expand)"
+		"[root] aws_db_instance.master_db_instance (expand)" -> "[root] aws_db_subnet_group.db_subnet_grp (expand)"
+		"[root] aws_db_instance.master_db_instance (expand)" -> "[root] aws_security_group.private_subnet_2 (expand)"
+		"[root] aws_db_instance.master_db_instance (expand)" -> "[root] var.db_password"
+		"[root] aws_db_instance.master_db_instance (expand)" -> "[root] var.db_username"
+		"[root] aws_db_instance.slave_db_instance (expand)" -> "[root] aws_db_instance.master_db_instance (expand)"
+		"[root] aws_db_instance.slave_db_instance (expand)" -> "[root] local.slave_db (expand)"
+		"[root] aws_db_subnet_group.db_subnet_grp (expand)" -> "[root] aws_subnet.private_subnet_2 (expand)"
+		"[root] aws_eip.dmz (expand)" -> "[root] aws_instance.bastion_instance (expand)"
+		"[root] aws_eip.nat_gate (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] aws_eip.nat_gate (expand)" -> "[root] var.availability_zones"
+		"[root] aws_elb.web_elb (expand)" -> "[root] aws_security_group.load_balancer (expand)"
+		"[root] aws_elb.web_elb (expand)" -> "[root] aws_subnet.public_subnet (expand)"
+		"[root] aws_instance.apiend_instance (expand)" -> "[root] aws_security_group.private_subnet_1 (expand)"
+		"[root] aws_instance.apiend_instance (expand)" -> "[root] aws_subnet.dmz (expand)"
+		"[root] aws_instance.apiend_instance (expand)" -> "[root] aws_subnet.private_subnet_1 (expand)"
+		"[root] aws_instance.apiend_instance (expand)" -> "[root] local.ami_filter (expand)"
+		"[root] aws_instance.bastion_instance (expand)" -> "[root] aws_security_group.bastion_sg (expand)"
+		"[root] aws_instance.bastion_instance (expand)" -> "[root] aws_subnet.dmz (expand)"
+		"[root] aws_instance.bastion_instance (expand)" -> "[root] local.ami_filter (expand)"
+		"[root] aws_instance.bastion_instance (expand)" -> "[root] provisioner.file"
+		"[root] aws_internet_gateway.igw (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_launch_configuration.launch_config (expand)" -> "[root] aws_security_group.web_app (expand)"
+		"[root] aws_launch_configuration.launch_config (expand)" -> "[root] local.ami_filter (expand)"
+		"[root] aws_nat_gateway.nat_gate (expand)" -> "[root] aws_eip.nat_gate (expand)"
+		"[root] aws_nat_gateway.nat_gate (expand)" -> "[root] aws_internet_gateway.igw (expand)"
+		"[root] aws_nat_gateway.nat_gate (expand)" -> "[root] aws_subnet.public_subnet (expand)"
+		"[root] aws_network_acl.main_acl (expand)" -> "[root] aws_subnet.public_subnet (expand)"
+		"[root] aws_network_acl.main_acl (expand)" -> "[root] var.dmz_subnet"
+		"[root] aws_route_table.privsub1_to_natgw (expand)" -> "[root] aws_nat_gateway.nat_gate (expand)"
+		"[root] aws_route_table.privsub1_to_natgw (expand)" -> "[root] var.private_subnet_cidr_block_1"
+		"[root] aws_route_table.privsub1_to_privsub2 (expand)" -> "[root] aws_instance.apiend_instance (expand)"
+		"[root] aws_route_table.privsub2_to_natgw (expand)" -> "[root] aws_nat_gateway.nat_gate (expand)"
+		"[root] aws_route_table.privsub2_to_natgw (expand)" -> "[root] var.private_subnet_cidr_block_2"
+		"[root] aws_route_table.route_outside (expand)" -> "[root] aws_internet_gateway.igw (expand)"
+		"[root] aws_route_table_association.dmz_igw (expand)" -> "[root] aws_route_table.route_outside (expand)"
+		"[root] aws_route_table_association.dmz_igw (expand)" -> "[root] aws_subnet.dmz (expand)"
+		"[root] aws_route_table_association.privatesub1_natgate (expand)" -> "[root] aws_route_table.privsub1_to_natgw (expand)"
+		"[root] aws_route_table_association.privatesub1_natgate (expand)" -> "[root] aws_subnet.private_subnet_1 (expand)"
+		"[root] aws_route_table_association.privatesub2_natgate (expand)" -> "[root] aws_route_table.privsub2_to_natgw (expand)"
+		"[root] aws_route_table_association.privatesub2_natgate (expand)" -> "[root] aws_subnet.private_subnet_2 (expand)"
+		"[root] aws_route_table_association.publicsub_igw (expand)" -> "[root] aws_route_table.route_outside (expand)"
+		"[root] aws_route_table_association.publicsub_igw (expand)" -> "[root] aws_subnet.public_subnet (expand)"
+		"[root] aws_security_group.bastion_sg (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_security_group.bastion_sg (expand)" -> "[root] var.dmz_subnet"
+		"[root] aws_security_group.bastion_sg (expand)" -> "[root] var.private_subnet_cidr_block_1"
+		"[root] aws_security_group.bastion_sg (expand)" -> "[root] var.private_subnet_cidr_block_2"
+		"[root] aws_security_group.bastion_sg (expand)" -> "[root] var.public_subnet_cidr_block"
+		"[root] aws_security_group.load_balancer (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_security_group.load_balancer (expand)" -> "[root] var.dmz_subnet"
+		"[root] aws_security_group.private_subnet_1 (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_security_group.private_subnet_1 (expand)" -> "[root] var.dmz_subnet"
+		"[root] aws_security_group.private_subnet_1 (expand)" -> "[root] var.private_subnet_cidr_block_2"
+		"[root] aws_security_group.private_subnet_1 (expand)" -> "[root] var.public_subnet_cidr_block"
+		"[root] aws_security_group.private_subnet_2 (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_security_group.private_subnet_2 (expand)" -> "[root] var.dmz_subnet"
+		"[root] aws_security_group.private_subnet_2 (expand)" -> "[root] var.private_subnet_cidr_block_1"
+		"[root] aws_security_group.web_app (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_security_group.web_app (expand)" -> "[root] var.dmz_subnet"
+		"[root] aws_subnet.dmz (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_subnet.dmz (expand)" -> "[root] var.availability_zones"
+		"[root] aws_subnet.dmz (expand)" -> "[root] var.dmz_subnet"
+		"[root] aws_subnet.dmz (expand)" -> "[root] var.env_instance_tags"
+		"[root] aws_subnet.private_subnet_1 (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_subnet.private_subnet_1 (expand)" -> "[root] var.availability_zones"
+		"[root] aws_subnet.private_subnet_1 (expand)" -> "[root] var.env_instance_tags"
+		"[root] aws_subnet.private_subnet_1 (expand)" -> "[root] var.private_subnet_cidr_block_1"
+		"[root] aws_subnet.private_subnet_2 (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_subnet.private_subnet_2 (expand)" -> "[root] var.availability_zones"
+		"[root] aws_subnet.private_subnet_2 (expand)" -> "[root] var.env_instance_tags"
+		"[root] aws_subnet.private_subnet_2 (expand)" -> "[root] var.private_subnet_cidr_block_2"
+		"[root] aws_subnet.public_subnet (expand)" -> "[root] aws_vpc.main_vpc (expand)"
+		"[root] aws_subnet.public_subnet (expand)" -> "[root] var.availability_zones"
+		"[root] aws_subnet.public_subnet (expand)" -> "[root] var.env_instance_tags"
+		"[root] aws_subnet.public_subnet (expand)" -> "[root] var.public_subnet_cidr_block"
+		"[root] aws_vpc.main_vpc (expand)" -> "[root] local.instance_name (expand)"
+		"[root] aws_vpc.main_vpc (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] data.aws_ami.linux (expand)" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"]"
+		"[root] local.ami_filter (expand)" -> "[root] data.aws_ami.linux (expand)"
+		"[root] local.slave_db (expand)" -> "[root] var.availability_zones"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_eip.dmz (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_route_table.privsub1_to_privsub2 (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_route_table_association.privatesub1_natgate (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_route_table_association.privatesub2_natgate (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] aws_route_table_association.publicsub_igw (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.acl (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.apiserver_instance (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.autoscaling_group (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.autoscaling_policy (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.bastion_instance (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.cloudwatch_metric_watch (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.db_instance (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.db_subnet_grp (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.dmz (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.eip (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.elb (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.elb_ids (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.internet_gateway (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.nat_gateway (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.private_subnet_cidr_block_1 (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.private_subnet_cidr_block_2 (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.public_subnet (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.route_table (expand)"
+		"[root] meta.count-boundary (EachMode fixup)" -> "[root] output.security_group (expand)"
+		"[root] output.acl (expand)" -> "[root] aws_network_acl.main_acl (expand)"
+		"[root] output.apiserver_instance (expand)" -> "[root] aws_instance.apiend_instance (expand)"
+		"[root] output.autoscaling_group (expand)" -> "[root] aws_autoscaling_group.web_app_autoscale (expand)"
+		"[root] output.autoscaling_policy (expand)" -> "[root] aws_autoscaling_policy.down_policy (expand)"
+		"[root] output.autoscaling_policy (expand)" -> "[root] aws_autoscaling_policy.up_policy (expand)"
+		"[root] output.bastion_instance (expand)" -> "[root] aws_instance.bastion_instance (expand)"
+		"[root] output.cloudwatch_metric_watch (expand)" -> "[root] aws_cloudwatch_metric_alarm.down_alarm_watch (expand)"
+		"[root] output.cloudwatch_metric_watch (expand)" -> "[root] aws_cloudwatch_metric_alarm.up_alarm_watch (expand)"
+		"[root] output.db_instance (expand)" -> "[root] aws_db_instance.slave_db_instance (expand)"
+		"[root] output.db_subnet_grp (expand)" -> "[root] aws_db_subnet_group.db_subnet_grp (expand)"
+		"[root] output.dmz (expand)" -> "[root] aws_subnet.dmz (expand)"
+		"[root] output.eip (expand)" -> "[root] aws_eip.nat_gate (expand)"
+		"[root] output.elb (expand)" -> "[root] aws_elb.web_elb (expand)"
+		"[root] output.elb_ids (expand)" -> "[root] aws_elb.web_elb (expand)"
+		"[root] output.internet_gateway (expand)" -> "[root] aws_internet_gateway.igw (expand)"
+		"[root] output.nat_gateway (expand)" -> "[root] aws_nat_gateway.nat_gate (expand)"
+		"[root] output.private_subnet_cidr_block_1 (expand)" -> "[root] aws_subnet.private_subnet_1 (expand)"
+		"[root] output.private_subnet_cidr_block_2 (expand)" -> "[root] aws_subnet.private_subnet_2 (expand)"
+		"[root] output.public_subnet (expand)" -> "[root] aws_subnet.public_subnet (expand)"
+		"[root] output.route_table (expand)" -> "[root] aws_route_table.privsub1_to_natgw (expand)"
+		"[root] output.route_table (expand)" -> "[root] aws_route_table.privsub2_to_natgw (expand)"
+		"[root] output.route_table (expand)" -> "[root] aws_route_table_association.dmz_igw (expand)"
+		"[root] output.security_group (expand)" -> "[root] aws_security_group.load_balancer (expand)"
+		"[root] output.security_group (expand)" -> "[root] aws_security_group.private_subnet_1 (expand)"
+		"[root] output.security_group (expand)" -> "[root] aws_security_group.private_subnet_2 (expand)"
+		"[root] output.security_group (expand)" -> "[root] aws_security_group.web_app (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_cloudwatch_metric_alarm.down_alarm_watch (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_cloudwatch_metric_alarm.up_alarm_watch (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_db_instance.slave_db_instance (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_eip.dmz (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_network_acl.main_acl (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table.privsub1_to_privsub2 (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.dmz_igw (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.privatesub1_natgate (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.privatesub2_natgate (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)" -> "[root] aws_route_table_association.publicsub_igw (expand)"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.aws_access_key"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.aws_secret_key"
+		"[root] provider[\"registry.terraform.io/hashicorp/aws\"]" -> "[root] var.region"
+		"[root] provisioner.file (close)" -> "[root] aws_instance.bastion_instance (expand)"
+		"[root] root" -> "[root] meta.count-boundary (EachMode fixup)"
+		"[root] root" -> "[root] provider[\"registry.terraform.io/hashicorp/aws\"] (close)"
+		"[root] root" -> "[root] provisioner.file (close)"
+	}
+}
+
